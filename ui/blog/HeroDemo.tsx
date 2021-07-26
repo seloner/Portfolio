@@ -1,6 +1,6 @@
 import { FOCUS_VISIBLE_OUTLINE, LIGHT_COLORS } from '@/lib/constants';
 import { shuffleArray } from '@/lib/shuffleArray';
-import { Button } from '@/ui/Button';
+import { ButtonLink } from '@/ui/Button';
 import { RainbowHighlight } from '@/ui/RainbowHighlight';
 import { PlayIcon } from '@heroicons/react/solid';
 import cx from 'clsx';
@@ -86,16 +86,16 @@ export const HeroDemo = () => {
 				</RoughNotationGroup>
 
 				<div className='mt-6 space-y-3 md:space-y-0 md:space-x-4 md:flex'>
-					<Button href='https://www.linkedin.com/in/delbaoliveira/' target='_blank'>
+					<ButtonLink href='https://www.linkedin.com/in/delbaoliveira/' target='_blank'>
 						View Linkedin
-					</Button>
-					<Button
+					</ButtonLink>
+					<ButtonLink
 						color='secondary'
 						href='https://github.com/delbaoliveira/website'
 						target='_blank'
 					>
 						View Github
-					</Button>
+					</ButtonLink>
 				</div>
 			</div>
 		</div>

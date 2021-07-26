@@ -2,14 +2,14 @@ import { getAllProjects } from '@/lib/getAllProjects';
 import { Layout } from '@/ui/Layout';
 import { ProjectPreview } from '@/ui/ProjectPreview';
 import React from 'react';
-import type { Project } from 'types';
+import type { ProjectMeta } from 'types';
 
 export function getStaticProps() {
 	const projects = getAllProjects();
 	return { props: { projects } };
 }
 
-export default function ProjectsPage({ projects }: { projects: Project[] }) {
+export default function ProjectsPage({ projects }: { projects: ProjectMeta[] }) {
 	return (
 		<Layout>
 			<div className='container px-4 mx-auto mt-24'>
