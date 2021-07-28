@@ -1,0 +1,324 @@
+---
+title: 'How I Built a Taboo mobile game'
+description: 'I love state machines,so I decided to develop it using react native and xstate'
+publishedAt: '2021-07-09'
+category: 'post'
+image: 'taboo.png'
+---
+
+Me and my friends we really like taboo.
+If you dont know how to play taboo you can find [more information here](https://www.google.com/search?client=firefox-b-d&q=taboo+rules).
+I have a lot of experience with React but not so much with React Native so I decided to try build taboo using React Native just for fun .Taboo is a simple game but the logic behind it is not so simple . So I decided to use xstate to orchestrate the state management.
+
+## Setup
+
+I decided to use typescript with this project
+
+### Expo
+
+```js
+  npm install --global expo-cli
+  expo init taboo
+```
+
+<br />
+[Typescript setup](https://docs.expo.io/guides/typescript/)
+
+### xstate
+
+```js
+  yarn add xstate @xstate/react
+```
+
+<br />
+[Typescript setup](https://docs.expo.io/guides/typescript/)
+
+### Game machine
+
+Taboo game has some settings
+
+- **round time**
+
+- **correct answer mutliplier**
+
+- **target points**
+
+```js
+interface Settings {
+	roundTimeInSeconds: number;
+	correctAnwserMultiplier: number;
+	targetPoints: number;
+}
+
+export const defaultSettings: Settings = {
+	roundTimeInSeconds: 20,
+	correctAnwserMultiplier: 1,
+	targetPoints: 5,
+};
+```
+
+In taboo teams are trying to find the word without saying the forbidden words and we have a winning team
+
+```js
+interface Settings {
+	roundTimeInSeconds: number;
+	correctAnwserMultiplier: number;
+	targetPoints: number;
+}
+
+export const defaultSettings: Settings = {
+	roundTimeInSeconds: 20,
+	correctAnwserMultiplier: 1,
+	targetPoints: 5,
+};
+
+type Winner = {
+	name: string,
+	points: number,
+};
+
+interface Question {
+	word: string;
+	forbiddenWords: string[];
+}
+```
+
+Now let's define machine's shape using xstate create model
+
+```js
+export const gameModel=createModel({
+		settings: defaultSettings,
+		secondsUntilEndOfRound: defaultSettings.roundTimeInSeconds,
+		currentTeam: 'A' as 'A' | 'B',
+		currentQuestion: {} as Question,
+		winner: {} as Winner,
+		teams: {
+			teamA: {
+				name: 'teamA',
+				points: 0,
+			},
+			teamB: {
+				name: 'teamB',
+				points: 0,
+			},
+		},
+		questions: [{... your questions array}]
+	})
+
+```
+
+I decided to go with 4 hierarchical states
+
+- **settings**
+
+- **waiting**
+
+- **playing**
+
+- **deciding game result**
+
+- **ended**
+
+### settings
+
+In the settings state players can change taboo game settings
+
+```js
+settings: {
+			on: {
+				'OK': {
+					target: 'waitingGame',
+				},
+				'SETTINGS_CHANGE': {
+					actions:"settingsChange",
+			}
+		},
+```
+
+### wating game
+
+In the waiting game state players can select team names and start the game
+
+```js
+waitingGame: {
+			on: {
+				'SHOW_SETTINGS': {
+					target: 'settings',
+				},
+				START_GAME: {
+					target: 'playing',
+					actions: 'pickRandomQuestion',
+				},
+			},
+		},
+```
+
+pickRandomQuestion just selects a random question from the question pool when the game starts
+
+### playing
+
+In the playing state we have two nested states teamA and teamB.At the beginning we need to wait the player to start the round.
+Whenever a team is playing we need to save the current team in the context so it is easier to manipulate context and avoid duplication
+
+So when we enter the playing state for a team we need to save it in the context as the current team and pick a random question.Also we need to respond to players answers (correct answer,wrong answer ,pass ).
+
+Every second we need to decrement the remaing time of the round and when the round ends we need to transition to the other team.So teamA's state looks like this.
+
+```
+teamA:{
+					id: 'A',
+					tags: 'teamPlaying',
+					initial: 'waiting',
+					entry: ['currentTeamA', 'pickRandomQuestion'],
+					states: {
+						waiting: {
+							tags: ['waiting'],
+							on: {
+								'START_ROUND': 'playing',
+								'RESET_GAME': {
+									target: '#taboo.waitingGame',
+									actions: 'resetGame',
+								},
+							},
+						},
+						playing: {
+							tags: ['playing'],
+							always: {
+								target: '#B',
+								cond: 'hasRoundEnded',
+								actions: ['resetRoundTime'],
+							},
+							exit: 'resetRoundTime',
+							invoke: {
+								src: 'decrementRoundTimeService',
+							},
+							on: {
+								PAUSE_GAME: {
+									target: 'paused',
+								},
+								CORRECT_ANSWER: {
+									actions: ['calculatePoints', 'pickRandomQuestion'],
+								},
+								WRONG_ASNWER: {
+									actions: ['pickRandomQuestion'],
+								},
+								RESET_GAME: {
+									target: '#taboo.waitingGame',
+									actions: 'resetGame',
+								},
+								PASS: {
+									actions: ['pickRandomQuestion'],
+								},
+								DECREMENT_ROUND_TIME: {
+									actions: 'decrementRoundTime',
+								},
+							},
+						},
+						paused: {
+							tags: ['paused'],
+							on: {
+								CONTINUE_GAME: {
+									target: 'playing',
+								},
+							},
+						},
+					},
+				}
+```
+
+I am using tags and ids , you can find more in [xstate's docs](https://xstate.js.org/docs/)
+
+In the same way teamB's state looks like this
+
+```js
+teamB: {
+					id: 'B',
+					tags: 'teamPlaying',
+					initial: 'waiting',
+					entry: ['currentTeamB', 'pickRandomQuestion'],
+					states: {
+						waiting: {
+							tags: ['waiting'],
+							on: {
+								'START_ROUND': 'playing',
+								'RESET_GAME': {
+									target: '#taboo.waitingGame',
+									actions: 'resetGame',
+								},
+							},
+						},
+						paused: {
+							tags: ['paused'],
+							on: {
+								CONTINUE_GAME: {
+									target: 'playing',
+								},
+							},
+						},
+						playing: {
+							exit: ['resetRoundTime'],
+							tags: ['playing'],
+							always: {
+								target: '#deciding',
+								cond: 'hasRoundEnded',
+							},
+							invoke: {
+								src: 'decrementRoundTimeService',
+							},
+							on: {
+								PAUSE_GAME: {
+									target: 'paused',
+								},
+								DECREMENT_ROUND_TIME: {
+									actions: 'decrementRoundTime',
+								},
+								CORRECT_ANSWER: {
+									actions: ['calculatePoints', 'pickRandomQuestion'],
+								},
+								WRONG_ASNWER: {
+									actions: ['pickRandomQuestion'],
+								},
+								PASS: {
+									actions: ['pickRandomQuestion'],
+								},
+							},
+						},
+					},
+				},
+```
+
+At the on end of the round of the second team we need to check if the game has ended.So basically we check if any teams has reached the target points.
+
+### deciding game result
+
+```
+	decidingGameResult: {
+			id: 'deciding',
+			always: [
+				{
+					target: 'ended',
+					cond: 'gameEnded',
+					actions: 'assignWinner',
+				},
+				{
+					target: '#A',
+				},
+			],
+		},
+
+```
+
+### ended
+
+```js
+ended: {
+			on: {
+				'RESET_GAME': {
+					target: '#taboo.waitingGame',
+					actions: 'resetGame',
+				},
+			},
+			tags: 'ended',
+		},
+	},
+```

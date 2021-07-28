@@ -1,7 +1,7 @@
 import { LIGHT_COLORS } from '@/lib/constants';
 import { shuffleArray } from '@/lib/shuffleArray';
 import { useIsFontReady } from '@/lib/useIsFontReady';
-import delbaImg from '@/public/profile.jpg';
+import ProfileImage from '@/public/profile.jpg';
 import { RainbowHighlight } from '@/ui/RainbowHighlight';
 import Image from 'next/image';
 import React from 'react';
@@ -60,18 +60,10 @@ export const About = () => {
 							</p>
 
 							<p className='mt-2'>
-								Let's hang out on{' '}
-								<a
-									href='https://twitter.com/delba_oliveira'
-									className={cx(
-										'font-bold transition-colors hover:text-sky-500',
-										FOCUS_VISIBLE_OUTLINE,
-									)}
-									target='_blank'
-								>
-									Twitter
-								</a>
-								.
+								I have passion for web-developement,
+								<span className='font-bold'> React</span> and{' '}
+								<span className='font-bold'>state machines</span>
+								!!!
 							</p>
 						</div>
 					</RoughNotationGroup>
@@ -79,7 +71,7 @@ export const About = () => {
 
 				<div className='flex-shrink-0 mt-12 lg:px-4 lg:mt-0'>
 					<Image
-						src={delbaImg}
+						src={ProfileImage}
 						alt='Profile'
 						placeholder='blur'
 						priority={true}

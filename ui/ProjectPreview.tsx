@@ -7,7 +7,7 @@ export const ProjectPreview: React.FC<{ project: ProjectMeta }> = ({ project }) 
 		<MediaPreview
 			text={project.description}
 			title={project.title}
-			url={project.url}
+			url={`/projects/${project.slug}`}
 			image={`/${project.image}`}
 			type='post'
 		/>

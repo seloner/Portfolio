@@ -39,15 +39,18 @@ export const Navigation = () => {
 							Blog
 						</a>
 					</Link>
+					<Link href='/projects'>
+						<a
+							className={cx(
+								'transition-colors hover:text-sky-500',
+								FOCUS_VISIBLE_OUTLINE,
+							)}
+						>
+							Projects
+						</a>
+					</Link>
 
 					<div className='text-gray-300'>&bull;</div>
-
-					<a
-						href='https://twitter.com/george_kalo7'
-						className={cx('transition-colors hover:text-sky-500', FOCUS_VISIBLE_OUTLINE)}
-					>
-						Twitter
-					</a>
 					<a
 						href='https://github.com/seloner'
 						className={cx('transition-colors hover:text-sky-500', FOCUS_VISIBLE_OUTLINE)}

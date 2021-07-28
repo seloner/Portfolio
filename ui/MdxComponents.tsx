@@ -89,9 +89,9 @@ export const components = {
 	},
 	code: ({ children }: { children: React.ReactNode }) => {
 		return (
-			<code className='px-1.5 py-0.5 text-sm font-mono font-medium bg-sky-100 rounded-md'>
-				{children}
-			</code>
+			<pre>
+				<code className='language-js'>{children}</code>
+			</pre>
 		);
 	},
 };

@@ -1,18 +1,19 @@
-import { getAllProjects, getProjectBySlug } from '@/lib/projects';
+import { getProjectBySlug } from '@/lib/projects';
 import { Layout } from '@/ui/Layout';
 import Image from 'next/image';
 import { GetStaticProps } from 'next';
 import { components } from '@/ui/MdxComponents';
 import React from 'react';
 import { getMDXComponent } from 'mdx-bundler/client';
-import type { ProjectMeta } from 'types';
+import type { BlogMeta, ProjectMeta } from 'types';
 import { NextSeo } from 'next-seo';
 import { format, parseISO } from 'date-fns';
 import { ButtonLink } from '@/ui/Button';
+import { getAllPosts, getPostBySlug } from '@/lib/blogs';
 
 export const getStaticPaths = () => {
-	const projects = getAllProjects();
-	const paths = projects.map(({ slug }) => ({ params: { slug } }));
+	const posts = getAllPosts();
+	const paths = posts.map(({ slug }) => ({ params: { slug } }));
 
 	return {
 		paths: paths,
@@ -25,12 +26,12 @@ export const getStaticProps: GetStaticProps<{ meta: ProjectMeta; code: string }>
 	context,
 ) => {
 	const slug = context.params?.slug as string;
-	const project = await getProjectBySlug(slug);
+	const project = await getPostBySlug(slug);
 
 	return { props: { code: project.code, meta: project.meta } };
 };
 
-export default function ProjectPage({ meta, code }: { meta: ProjectMeta; code: string }) {
+export default function ProjectPage({ meta, code }: { meta: BlogMeta; code: string }) {
 	const Component = React.useMemo(() => getMDXComponent(code), [code]);
 	return (
 		<>

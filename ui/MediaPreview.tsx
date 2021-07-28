@@ -18,8 +18,7 @@ export const MediaPreview = ({
 	image?: string;
 	type?: 'youtube' | 'post';
 }) => {
-	const [width, height] = type === 'post' ? [1920, 1080] : [1280, 720];
-
+	const [width, height] = type === 'post' ? [1920, 960] : [1280, 720];
 	return (
 		<div>
 			<Link href={url}>
@@ -32,13 +31,7 @@ export const MediaPreview = ({
 								</div>
 							) : null}
 
-							<Image
-								quality={100}
-								objectFit='fill'
-								src={image}
-								width={width}
-								height={height}
-							/>
+							<Image quality={100} src={image} width={width} height={height} />
 						</div>
 					) : null}
 					<h2 className='text-lg font-bold group-hover:text-sky-500'>{title}</h2>
