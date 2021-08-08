@@ -1,14 +1,14 @@
 ---
 title: 'How I Built a Taboo mobile game'
-description: 'I love state machines,so I decided to develop it using react native and xstate'
+description: 'I love state machines, so I decided to develop it using react native and xstate'
 publishedAt: '2021-07-09'
 category: 'post'
 image: 'taboo.png'
 ---
 
-Me and my friends we really like taboo.
-If you dont know how to play taboo you can find [more information here](https://www.google.com/search?client=firefox-b-d&q=taboo+rules).
-I have a lot of experience with React but not so much with React Native so I decided to try build taboo using React Native just for fun .Taboo is a simple game but the logic behind it is not so simple . So I decided to use xstate to orchestrate the state management.
+Me and my friends love Taboo.
+If you don't know how to play Taboo you can find [more information here](https://www.google.com/search?client=firefox-b-d&q=taboo+rules).
+I have a lot of experience with React but not so much with React Native . I decided to build a Taboo game using React Native just for fun.Taboo is a simple game but the logic behind it is not so simple . So I decided to use xstate to orchestrate the state management.
 
 ## Setup
 
@@ -35,7 +35,7 @@ I decided to use typescript with this project
 
 ### Game machine
 
-Taboo game has some settings
+Game has some settings
 
 - **round time**
 
@@ -57,7 +57,8 @@ export const defaultSettings: Settings = {
 };
 ```
 
-In taboo teams are trying to find the word without saying the forbidden words and we have a winning team
+In a taboo game teams are trying to find the word without saying the forbidden words.
+The game ends when a team reaches the target points.
 
 ```js
 interface Settings {
@@ -83,7 +84,7 @@ interface Question {
 }
 ```
 
-Now let's define machine's shape using xstate create model
+Now let's define the machine shape using xstate create model
 
 ```js
 export const gameModel=createModel({
@@ -121,7 +122,7 @@ I decided to go with 4 hierarchical states
 
 ### settings
 
-In the settings state players can change taboo game settings
+Players should be able to change game settings
 
 ```js
 settings: {
@@ -157,12 +158,12 @@ pickRandomQuestion just selects a random question from the question pool when th
 
 ### playing
 
-In the playing state we have two nested states teamA and teamB.At the beginning we need to wait the player to start the round.
-Whenever a team is playing we need to save the current team in the context so it is easier to manipulate context and avoid duplication
+In the playing state we have two nested states teamA and teamB. At the beginning we need to wait the player to start the round.
+Whenever a team is playing we need to save the current team in the context so it is easier to manipulate context and avoid duplication.
 
-So when we enter the playing state for a team we need to save it in the context as the current team and pick a random question.Also we need to respond to players answers (correct answer,wrong answer ,pass ).
+Also we need to respond to players answers (correct answer,wrong answer ,pass ) and pick a random question in every round.
 
-Every second we need to decrement the remaing time of the round and when the round ends we need to transition to the other team.So teamA's state looks like this.
+Every second we need to decrement the remaining time of the round. When the round end we need to transition to the other team. So teamA's state looks like this.
 
 ```
 teamA:{
@@ -287,7 +288,7 @@ teamB: {
 				},
 ```
 
-At the on end of the round of the second team we need to check if the game has ended.So basically we check if any teams has reached the target points.
+At the end of the round of the second team we need to check if the game has ended. So basically we check if any team has reached the target points.
 
 ### deciding game result
 
@@ -322,3 +323,150 @@ ended: {
 		},
 	},
 ```
+
+When the game end players should be able to reset the game
+
+### We use a switch statement to decide which screen to show
+
+```js
+<Box
+	_web={{
+		maxWidth: 500,
+	}}
+	minHeight={500}
+	px={12}
+	w='100%'
+	justifyContent='space-between'
+>
+	{(() => {
+		switch (true) {
+			case state.matches('waitingGame'):
+				return <StartScreen />;
+			case state.matches('settings'):
+				return <SettingsScreen />;
+			case state.hasTag('paused'):
+				return <PauseScreen />;
+			case state.hasTag('playing'):
+				return <TeamPlaying />;
+			case state.hasTag('teamPlaying'):
+				return <TeamWaiting />;
+			case state.hasTag('ended'):
+				return <EndScreen />;
+			default:
+				return null;
+		}
+	})()}
+</Box>
+```
+
+### Start Screen
+
+<img
+	style={{ height: 600, width: 'auto' }}
+	src='/taboo/start-screen.png'
+	alt='Start Screen'
+/>
+
+To show the settings screen
+
+```js
+<Icon
+	onPress={() => {
+		send({ type: 'SHOW_SETTINGS' });
+	}}
+	marginLeft={5}
+	color='white'
+	height={30}
+	width={30}
+	as={<Ionicons name='settings-outline' />}
+/>
+```
+
+### Settings Screen
+
+<img
+	style={{ height: 600, width: 'auto' }}
+	src='/taboo/settings-screen.png'
+	alt='Settings Screen'
+/>
+
+<br />
+
+- **round time**
+
+- **correct answer mutliplier**
+
+- **target points**
+
+### Waiting Game Screen
+
+<img
+	style={{ height: 600, width: 'auto' }}
+	src='/taboo/waitingGame-screen.png'
+	alt='Waiting Game Screen'
+/>
+
+<br />
+<br />
+
+We start the round ( target points 5 ).
+
+```js
+<PrimaryButton
+	onPress={() => {
+		send(gameModel.events.START_ROUND());
+	}}
+>
+	εναρξη
+</PrimaryButton>
+```
+
+### Team playing screen
+
+<img
+	style={{ height: 600, width: 'auto' }}
+	src='/taboo/teamPlaying-screen.png'
+	alt='Team playing Screen'
+/>
+
+<br />
+
+```js
+<Stack mt={10} direction='row' space={4} justifyContent='space-between'>
+	<ControlIcon
+		onPress={() => {
+			send(gameModel.events.CORRECT_ANSWER());
+		}}
+		bg='green.100'
+		icon={<Icon as={Ionicons} size={8} color='gray.500' name='checkmark' />}
+	/>
+	<ControlIcon
+		onPress={() => {
+			send(gameModel.events.WRONG_ASNWER());
+		}}
+		bg='rose.400'
+		icon={<Icon as={Ionicons} size={8} color='white' name='close-outline' />}
+	/>
+	<ControlIcon
+		onPress={() => {
+			send(gameModel.events.PASS());
+		}}
+		bg='white'
+		icon={
+			<Icon as={Ionicons} size={8} color='gray.500' name='play-skip-forward' ml={0.5} />
+		}
+	/>
+</Stack>
+```
+
+<br />
+
+- **correct answer**
+
+- **wrong answer**
+
+- **pass**
+
+## You can find the code below
+
+## [github](https://github.com/seloner/taboo)
