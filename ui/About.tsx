@@ -41,13 +41,13 @@ export const About = () => {
 								</RainbowHighlight>{' '}
 								at{' '}
 								<a
-									href='https://www.connect-line.gr/'
+									href='https://www.workable.com/'
 									className={cx(
 										'font-bold transition-colors hover:text-sky-500',
 										FOCUS_VISIBLE_OUTLINE,
 									)}
 								>
-									ConnectLine
+									Workable
 								</a>{' '}
 								&mdash; focusing on fast and mobile and web applications.
 							</p>
