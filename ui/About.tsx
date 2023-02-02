@@ -37,7 +37,7 @@ export const About = () => {
 								I love making applications that are user-friendly, simple and delightful.
 								I work as a{' '}
 								<RainbowHighlight color={colors[1]}>
-									Full Stack Developer
+									Frontend Engineer
 								</RainbowHighlight>{' '}
 								at{' '}
 								<a
