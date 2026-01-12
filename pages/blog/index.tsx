@@ -1,8 +1,6 @@
 import { getAllPosts } from '@/lib/blogs';
 import { BlogPreview } from '@/ui/blog/BlogPreview';
 import { Layout } from '@/ui/Layout';
-import { ProjectPreview } from '@/ui/ProjectPreview';
-import React from 'react';
 import type { BlogMeta } from 'types';
 
 export function getStaticProps() {

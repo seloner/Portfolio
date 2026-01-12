@@ -1,7 +1,6 @@
 import { LinkPreview } from '@/ui/LinkPreview';
 import { ButtonLink } from '@/ui/Button';
 import { Playground } from '@/ui/Playground';
-import { ThemeSelect } from '@/ui/ThemeSelect';
 import { HeroDemo } from '@/ui/blog/HeroDemo';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
@@ -13,7 +12,6 @@ export const components = {
 	Playground,
 	LinkPreview,
 	ButtonLink,
-	ThemeSelect,
 	HeroDemo,
 	h1: (props: any) => <h1 className='mt-8 mb-4 text-4xl font-bold' {...props} />,
 	h2: (props: any) => <h2 className='mt-8 mb-3 text-2xl font-bold' {...props} />,
