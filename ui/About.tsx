@@ -1,7 +1,7 @@
 import { LIGHT_COLORS } from '@/lib/constants';
 import { shuffleArray } from '@/lib/shuffleArray';
 import { useIsFontReady } from '@/lib/useIsFontReady';
-import ProfileImage from '@/public/profile.jpg';
+import ProfileImage from '@/public/profile.jpeg';
 import { RainbowHighlight } from '@/ui/RainbowHighlight';
 import Image from 'next/image';
 import React from 'react';
@@ -36,16 +36,18 @@ export const About = () => {
 							<p>
 								I love making applications that are user-friendly, simple and delightful.
 								I work as a{' '}
-								<RainbowHighlight color={colors[1]}>Frontend Engineer</RainbowHighlight>{' '}
+								<RainbowHighlight color={colors[1]}>
+									Senior Frontend Engineer
+								</RainbowHighlight>{' '}
 								at{' '}
 								<a
-									href='https://www.workable.com/'
+									href='https://www.e-food.gr/'
 									className={cx(
 										'font-bold transition-colors hover:text-sky-500',
 										FOCUS_VISIBLE_OUTLINE
 									)}
 								>
-									Workable
+									efood
 								</a>{' '}
 								&mdash; focusing on fast and mobile and web applications.
 							</p>
@@ -73,9 +75,7 @@ export const About = () => {
 						alt='Profile'
 						placeholder='blur'
 						priority={true}
-						className='rounded-full'
-						width={200}
-						height={200}
+						className='rounded-full w-[200px] h-[200px] object-cover'
 					/>
 				</div>
 			</div>
