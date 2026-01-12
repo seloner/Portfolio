@@ -69,7 +69,7 @@ export default function ProjectPage({ meta, code }: { meta: ProjectMeta; code: s
 							alt=''
 							height={24}
 							width={24}
-							className='rounded-full'
+							className='rounded-full w-[24px] h-[24px] object-cover'
 						/>
 
 						<div>George Kalogeropoulos</div>
