@@ -69,8 +69,9 @@ export default function ProjectPage({ meta, code }: { meta: BlogMeta; code: stri
 							alt=''
 							src='/profile.jpeg'
 							height={24}
+							objectFit='cover'
 							width={24}
-							className='rounded-full'
+							className='rounded-full w-[24px] h-[24px] object-cover'
 						/>
 
 						<div>George Kalogeropoulos</div>
