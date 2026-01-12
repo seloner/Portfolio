@@ -67,7 +67,7 @@ export default function ProjectPage({ meta, code }: { meta: BlogMeta; code: stri
 					<div className='flex items-center mt-4 space-x-2 text-gray-500'>
 						<Image
 							alt=''
-							src='/profile.jpg'
+							src='/profile.jpeg'
 							height={24}
 							width={24}
 							className='rounded-full'
