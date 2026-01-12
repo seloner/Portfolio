@@ -6,9 +6,9 @@ category: 'post'
 image: 'taboo.png'
 ---
 
-Me and my friends love Taboo.
+My friends and I love Taboo.
 If you don't know how to play Taboo you can find [more information here](https://www.google.com/search?client=firefox-b-d&q=taboo+rules).
-I have a lot of experience with React but not so much with React Native . I decided to build a Taboo game using React Native just for fun.Taboo is a simple game but the logic behind it is not so simple . So I decided to use xstate to orchestrate the state management.
+I have a lot of experience with React but not so much with React Native. I decided to build a Taboo game using React Native just for fun. Taboo is a simple game but the logic behind it is not so simple. So I decided to use xstate to orchestrate the state management.
 
 ## Setup
 
@@ -39,20 +39,20 @@ Game has some settings
 
 - **round time**
 
-- **correct answer mutliplier**
+- **correct answer multiplier**
 
 - **target points**
 
 ```js
 interface Settings {
 	roundTimeInSeconds: number;
-	correctAnwserMultiplier: number;
+	correctAnswerMultiplier: number;
 	targetPoints: number;
 }
 
 export const defaultSettings: Settings = {
 	roundTimeInSeconds: 20,
-	correctAnwserMultiplier: 1,
+	correctAnswerMultiplier: 1,
 	targetPoints: 5,
 };
 ```
@@ -63,13 +63,13 @@ The game ends when a team reaches the target points.
 ```js
 interface Settings {
 	roundTimeInSeconds: number;
-	correctAnwserMultiplier: number;
+	correctAnswerMultiplier: number;
 	targetPoints: number;
 }
 
 export const defaultSettings: Settings = {
 	roundTimeInSeconds: 20,
-	correctAnwserMultiplier: 1,
+	correctAnswerMultiplier: 1,
 	targetPoints: 5,
 };
 
@@ -136,7 +136,7 @@ settings: {
 		},
 ```
 
-### wating game
+### waiting game
 
 In the waiting game state players can select team names and start the game
 
@@ -161,7 +161,7 @@ pickRandomQuestion just selects a random question from the question pool when th
 In the playing state we have two nested states teamA and teamB. At the beginning we need to wait the player to start the round.
 Whenever a team is playing we need to save the current team in the context so it is easier to manipulate context and avoid duplication.
 
-Also we need to respond to players answers (correct answer,wrong answer ,pass ) and pick a random question in every round.
+Also we need to respond to players' answers (correct answer, wrong answer, pass) and pick a random question in every round.
 
 Every second we need to decrement the remaining time of the round. When the round end we need to transition to the other team. So teamA's state looks like this.
 
@@ -200,7 +200,7 @@ teamA:{
 								CORRECT_ANSWER: {
 									actions: ['calculatePoints', 'pickRandomQuestion'],
 								},
-								WRONG_ASNWER: {
+								WRONG_ANSWER: {
 									actions: ['pickRandomQuestion'],
 								},
 								RESET_GAME: {
@@ -276,7 +276,7 @@ teamB: {
 								CORRECT_ANSWER: {
 									actions: ['calculatePoints', 'pickRandomQuestion'],
 								},
-								WRONG_ASNWER: {
+								WRONG_ANSWER: {
 									actions: ['pickRandomQuestion'],
 								},
 								PASS: {
@@ -288,7 +288,7 @@ teamB: {
 				},
 ```
 
-At the end of the round of the second team we need to check if the game has ended. So basically we check if any team has reached the target points.
+At the end of the second team's round we need to check if the game has ended. So basically we check if any team has reached the target points.
 
 ### deciding game result
 
@@ -324,7 +324,7 @@ ended: {
 	},
 ```
 
-When the game end players should be able to reset the game
+When the game ends players should be able to reset the game
 
 ### We use a switch statement to decide which screen to show
 
@@ -394,7 +394,7 @@ To show the settings screen
 
 - **round time**
 
-- **correct answer mutliplier**
+- **correct answer multiplier**
 
 - **target points**
 
@@ -442,7 +442,7 @@ We start the round ( target points 5 ).
 	/>
 	<ControlIcon
 		onPress={() => {
-			send(gameModel.events.WRONG_ASNWER());
+			send(gameModel.events.WRONG_ANSWER());
 		}}
 		bg='rose.400'
 		icon={<Icon as={Ionicons} size={8} color='white' name='close-outline' />}

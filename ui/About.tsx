@@ -25,16 +25,16 @@ export const About = () => {
 
 	return (
 		<div className='container px-4 mx-auto'>
-			<div className='space-x-5 lg:flex item-center lg:-mx-4'>
+			<div className='space-x-5 lg:flex items-center lg:-mx-4'>
 				<div className='lg:px-4 '>
 					<RoughNotationGroup show={isFontReady}>
 						<h1 className='text-2xl font-bold text-gray-900 lg:text-4xl'>
-							Hi there,I am George.
+							Hi there, I am George.
 						</h1>
 
 						<div className='mt-4 text-gray-800'>
 							<p>
-								I love making applications that are user-friendly, simple and delightful.
+								I love making applications that are user-friendly, simple, and delightful.
 								I work as a{' '}
 								<RainbowHighlight color={colors[1]}>
 									Senior Frontend Engineer
@@ -49,7 +49,7 @@ export const About = () => {
 								>
 									efood
 								</a>{' '}
-								&mdash; focusing on fast and mobile and web applications.
+								&mdash; focusing on fast mobile and web applications.
 							</p>
 							<p className='mt-2'>
 								Welcome to my digital space where I share my{' '}
@@ -60,10 +60,9 @@ export const About = () => {
 							</p>
 
 							<p className='mt-2'>
-								I have passion for web-developement,
-								<span className='font-bold'> React</span> and{' '}
-								<span className='font-bold'>state machines</span>
-								!!!
+								I have a passion for web development,
+								<span className='font-bold'> React</span>, and{' '}
+								<span className='font-bold'>state machines</span>!
 							</p>
 						</div>
 					</RoughNotationGroup>

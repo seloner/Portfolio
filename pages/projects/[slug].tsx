@@ -51,7 +51,7 @@ export default function ProjectPage({ meta, code }: { meta: ProjectMeta; code: s
 							alt: meta.title,
 						},
 					],
-					site_name: 'George Kalogerpoulos',
+					site_name: 'George Kalogeropoulos',
 				}}
 				twitter={{
 					handle: '@seloner_7',

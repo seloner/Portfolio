@@ -32,7 +32,7 @@ export default function Home({
 					<div className='container px-4 mx-auto'>
 						<h2 className='text-2xl font-bold text-gray-800'>Recent Projects</h2>
 						<h4 className='mt-2 text-gray-500'>
-							Projects what I have been working lately
+							Projects that I have been working on lately
 						</h4>
 						<div className='flex mt-12 flex-col gap-12'>
 							{projects.map((project) => (
@@ -46,7 +46,7 @@ export default function Home({
 				<div id='blogs'>
 					<div className='container px-4  mx-auto'>
 						<h2 className='text-2xl font-bold text-gray-800'>Recent Blogs</h2>
-						<h4 className='mt-2 text-gray-500'>Blogs what I have been working lately</h4>
+						<h4 className='mt-2 text-gray-500'>Blogs that I have been working on lately</h4>
 						<div className='flex mt-12 flex-col gap-12'>
 							{posts.map((post) => (
 								<div key={post.slug} className='sm:grid  sm:grid-cols-2 sm:gap-10'>
