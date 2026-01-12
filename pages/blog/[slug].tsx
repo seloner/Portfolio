@@ -23,7 +23,7 @@ export const getStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps<{ meta: ProjectMeta; code: string }> = async (
-	context,
+	context
 ) => {
 	const slug = context.params?.slug as string;
 	const project = await getPostBySlug(slug);
@@ -65,7 +65,13 @@ export default function ProjectPage({ meta, code }: { meta: BlogMeta; code: stri
 					<h1 className='text-2xl font-bold md:text-4xl'>{meta.title}</h1>
 
 					<div className='flex items-center mt-4 space-x-2 text-gray-500'>
-						<Image src='/profile.jpg' height={24} width={24} className='rounded-full' />
+						<Image
+							alt=''
+							src='/profile.jpg'
+							height={24}
+							width={24}
+							className='rounded-full'
+						/>
 
 						<div>George Kalogeropoulos</div>
 
@@ -76,7 +82,7 @@ export default function ProjectPage({ meta, code }: { meta: BlogMeta; code: stri
 
 					{meta.image ? (
 						<div className='mt-10 overflow-hidden rounded-2xl text-[0px]'>
-							<Image src={`/${meta.image}`} width={1920} height={960} />
+							<Image alt='' src={`/${meta.image}`} width={1920} height={960} />
 						</div>
 					) : null}
 

@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>George Kalogeorpoulos</title>
+				<title>George Kalogeropoulos</title>
 			</Head>
 			<ThemeProvider attribute='class' enableColorScheme={false}>
 				<Component {...pageProps} />

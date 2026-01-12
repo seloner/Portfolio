@@ -36,15 +36,13 @@ export const About = () => {
 							<p>
 								I love making applications that are user-friendly, simple and delightful.
 								I work as a{' '}
-								<RainbowHighlight color={colors[1]}>
-									Frontend Engineer
-								</RainbowHighlight>{' '}
+								<RainbowHighlight color={colors[1]}>Frontend Engineer</RainbowHighlight>{' '}
 								at{' '}
 								<a
 									href='https://www.workable.com/'
 									className={cx(
 										'font-bold transition-colors hover:text-sky-500',
-										FOCUS_VISIBLE_OUTLINE,
+										FOCUS_VISIBLE_OUTLINE
 									)}
 								>
 									Workable
@@ -69,7 +67,7 @@ export const About = () => {
 					</RoughNotationGroup>
 				</div>
 
-				<div className='flex-shrink-0 mt-12 lg:px-4 lg:mt-0'>
+				<div className='shrink-0 mt-12 lg:px-4 lg:mt-0'>
 					<Image
 						src={ProfileImage}
 						alt='Profile'

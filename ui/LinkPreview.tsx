@@ -63,6 +63,7 @@ export const LinkPreview = ({
 				<Portal>
 					<div className='hidden'>
 						<Image
+							alt=''
 							src={src}
 							width={width}
 							height={height}
@@ -93,7 +94,6 @@ export const LinkPreview = ({
 						enter='transform transition duration-300 origin-bottom ease-out'
 						enterFrom='opacity-0 translate-y-2 scale-0'
 						enterTo='opacity-100 translate-y-0 scale-100'
-						className='shadow-xl rounded-xl'
 					>
 						<a
 							href={url}
@@ -101,6 +101,7 @@ export const LinkPreview = ({
 							style={{ fontSize: 0 }}
 						>
 							<Image
+								alt=''
 								src={src}
 								width={width}
 								height={height}

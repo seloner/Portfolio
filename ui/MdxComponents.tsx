@@ -26,7 +26,7 @@ export const components = {
 				<a
 					className={cx(
 						'font-medium transition-colors text-sky-500 hover:text-sky-700',
-						FOCUS_VISIBLE_OUTLINE,
+						FOCUS_VISIBLE_OUTLINE
 					)}
 					href={href}
 					target='_blank'
@@ -41,7 +41,7 @@ export const components = {
 				<a
 					className={cx(
 						'font-medium transition-colors text-sky-500 hover:text-sky-700',
-						FOCUS_VISIBLE_OUTLINE,
+						FOCUS_VISIBLE_OUTLINE
 					)}
 					{...props}
 				/>

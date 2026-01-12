@@ -2,7 +2,7 @@ import { FOCUS_VISIBLE_OUTLINE, LIGHT_COLORS } from '@/lib/constants';
 import { shuffleArray } from '@/lib/shuffleArray';
 import { ButtonLink } from '@/ui/Button';
 import { RainbowHighlight } from '@/ui/RainbowHighlight';
-import { PlayIcon } from '@heroicons/react/solid';
+import { PlayIcon } from '@heroicons/react/24/solid';
 import cx from 'clsx';
 import React from 'react';
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation';
@@ -23,7 +23,7 @@ export const HeroDemo = () => {
 						onClick={() => setIsPlayed(true)}
 						className={cx(
 							'p-24 transition-colors text-black hover:text-red-500',
-							FOCUS_VISIBLE_OUTLINE,
+							FOCUS_VISIBLE_OUTLINE
 						)}
 					>
 						<PlayIcon className='w-20' />

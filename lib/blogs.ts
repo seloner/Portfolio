@@ -3,8 +3,6 @@ import path from 'path';
 import glob from 'glob';
 import matter from 'gray-matter';
 import { bundleMDX } from 'mdx-bundler';
-import gfmPlugin from 'remark-gfm';
-import slugPlugin from 'remark-slug';
 import { BlogMeta } from 'types';
 const ROOT_PATH = process.cwd();
 
@@ -30,12 +28,8 @@ export const getPostBySlug = async (slug: string) => {
 	// Get the content of the file
 	const source = fs.readFileSync(path.join(PROJECTS_PATH, `${slug}.mdx`), 'utf8');
 
-	const { code, frontmatter } = await bundleMDX(source, {
-		xdmOptions(options) {
-			options.remarkPlugins = [...(options?.remarkPlugins ?? []), slugPlugin, gfmPlugin];
-
-			return options;
-		},
+	const { code, frontmatter } = await bundleMDX({
+		source,
 	});
 
 	const meta = {
