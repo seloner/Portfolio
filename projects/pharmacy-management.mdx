@@ -1,0 +1,27 @@
+---
+title: 'Pharmacy Management'
+description: 'A pharmacy workspace for managing customers, account balances, prescriptions, and daily scheduling.'
+publishedAt: '2026-11-06'
+image: 'pharmacy/dashboard.png'
+url: '/projects/pharmacy-management'
+---
+
+A pharmacy management application that brings customer records, account balances, and prescription tracking into one workspace. Its Greek-language interface supports the daily workflow from checking outstanding balances to finding upcoming prescriptions.
+
+### Daily overview
+
+The dashboard shows customer totals, the overall account balance, pending prescriptions for the month, and prescriptions scheduled for today. A calendar provides a monthly view of prescription activity.
+
+### Customers and prescriptions
+
+Customer records include transaction history with debit and credit entries. Prescriptions can be searched and tracked by date, doctor, supplies, paperless status, barcode, and completion state. Barcode lookup connects scanned or typed codes to a local catalogue of Greek medicines.
+
+<Image src='/pharmacy/prescriptions.png' alt='Searchable prescription list with dates, doctors, barcodes, and pending status, shown with sample data.' width={2048} height={1084}>
+  Prescription tracking with sample data.
+</Image>
+
+### Built with
+
+React, TanStack Start, Router, Query, Form, and Table, with PostgreSQL and Prisma. Shared components and CSS Modules support light and dark themes.
+
+Screenshots use sample data. The dashboard email has been obscured for privacy.
