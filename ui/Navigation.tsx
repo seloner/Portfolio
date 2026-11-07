@@ -18,11 +18,6 @@ export const Navigation = () => {
 				</a>
 				<div className='flex space-x-4 font-medium text-gray-800'>
 					<a
-						className={cx('transition-colors hover:text-sky-500', FOCUS_VISIBLE_OUTLINE)}
-					>
-						About
-					</a>
-					<a
 						href='/blog'
 						className={cx('transition-colors hover:text-sky-500', FOCUS_VISIBLE_OUTLINE)}
 					>

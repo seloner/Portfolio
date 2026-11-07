@@ -9,7 +9,6 @@ import { BlogMeta, ProjectMeta } from 'types';
 
 export const getStaticProps = async () => {
 	const projects = getAllProjects();
-	console.log(projects);
 	const posts = getAllPosts() || [];
 	return {
 		props: { projects, posts },
@@ -35,14 +34,14 @@ export default function Home({
 						<h4 className='mt-2 text-gray-500'>
 							Projects that I have been working on lately
 						</h4>
-						<div className='flex mt-12 flex-col gap-12'>
+						<div className='mt-12 divide-y divide-gray-200'>
 							{projects
 								.sort(
 									(a, b) =>
 										new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
 								)
 								.map((project) => (
-									<div key={project.slug} className='sm:grid  sm:grid-cols-2 sm:gap-10'>
+									<div key={project.slug} className='py-10 first:pt-0 last:pb-0 sm:grid sm:grid-cols-2 sm:gap-10'>
 										<ProjectPreview project={project} />
 									</div>
 								))}
